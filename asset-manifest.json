@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/learn-months-ts/static/css/main.99b8fb9e.css",
+    "main.js": "/learn-months-ts/static/js/main.1451094a.js",
+    "index.html": "/learn-months-ts/index.html",
+    "main.99b8fb9e.css.map": "/learn-months-ts/static/css/main.99b8fb9e.css.map",
+    "main.1451094a.js.map": "/learn-months-ts/static/js/main.1451094a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.99b8fb9e.css",
+    "static/js/main.1451094a.js"
+  ]
+}
