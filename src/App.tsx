@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { months } from './constants';
 
-const months = {
-  1: 'January',
-  2: 'February',
-  3: 'March',
-  4: 'April',
-  5: 'May',
-  6: 'June',
-  7: 'July',
-  8: 'August',
-  9: 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December',
-};
-
-function shuffle(array: number[]) {
+const shuffle = (array: number[]): number[] => {
   const newArray = [...array];
   const length = newArray.length;
 
@@ -30,22 +16,28 @@ function shuffle(array: number[]) {
   }
 
   return newArray;
-}
+};
 
 const getOneToTwelve = (): number => Math.floor(Math.random() * 12 + 1);
 
 function App() {
-  const [randomIndex, setRandomIndex] = useState(0);
+  const [randomIndex, setRandomIndex] = useState(1);
 
   const generateNext = () => {
     setRandomIndex(getOneToTwelve());
   };
 
-  const getQuizOptions = (): Array<number> =>
+  const getQuizOptions = (): number[] =>
     shuffle([getOneToTwelve(), getOneToTwelve(), randomIndex]);
 
-  const getRandomMonth = () => {
-    return months[randomIndex as keyof typeof months];
+  const renderRandomMonthNames = () => {
+    const randomMonth = months[randomIndex as keyof typeof months];
+
+    return (
+      <div>
+        {randomMonth.en} / {randomMonth.lt}
+      </div>
+    );
   };
 
   useEffect(() => {
@@ -53,17 +45,24 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      {getRandomMonth()}
-      <ul>
-        {getQuizOptions().map((nr) => {
-          return nr === randomIndex ? (
-            <li onClick={generateNext}>{nr}</li>
+    <div className='grid h-screen place-items-center'>
+      <div className='flex flex-col items-center gap-2  self-center text-center'>
+        {renderRandomMonthNames()}
+        {getQuizOptions().map((monthNumber) => {
+          return monthNumber === randomIndex ? (
+            <div
+              className='w-52 rounded-full bg-sky-500 hover:bg-sky-700'
+              onClick={generateNext}
+            >
+              {monthNumber}
+            </div>
           ) : (
-            <li>{nr}</li>
+            <div className='w-52 rounded-full bg-sky-500 hover:bg-sky-700'>
+              {monthNumber}
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
